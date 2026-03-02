@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id        Int      @id @default(autoincrement())
+  ownerId   String   @map("owner_id") // <-- ADDED: Tracks who uploaded the file
+  name      String
+  size      Int
+  url       String
+  parentId  Int      @map("parent")
+  createdAt DateTime @default(now()) @map("created_at") // <-- ADDED: Upload time
+  
+  folder    Folder   @relation(fields: [parentId], references: [id])
+
+  @@index([parentId], map: "file_parent_index") 
+  @@index([ownerId], map: "file_owner_id_index") // <-- ADDED: Makes searching by user fast
+  @@map("drive_tutorial_files_table") 
+}
+
+model Folder {
+  id        Int      @id @default(autoincrement())
+  ownerId   String   @map("owner_id") // <-- ADDED: Tracks who created the folder
+  name      String
+  parentId  Int?     @map("parent")
+  createdAt DateTime @default(now()) @map("created_at") // <-- ADDED: Creation time
+  
+  files        File[]
+  parentFolder Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id])
+  subFolders   Folder[] @relation("FolderHierarchy")
+
+  @@index([parentId], map: "folder_parent_index") 
+  @@index([ownerId], map: "folder_owner_id_index") // <-- ADDED: Makes searching by user fast
+  @@map("drive_tutorial_folders_table") 
+}
