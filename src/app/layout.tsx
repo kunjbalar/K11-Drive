@@ -1,4 +1,4 @@
-import "~/styles/globals.css";
+import "@/styles/globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import { PostHogProvider } from "./_providers/posthog-provider";
 

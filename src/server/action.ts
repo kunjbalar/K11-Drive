@@ -28,7 +28,10 @@ export async function deleteFile(fileId: number) {
   // 2. Extract the file key for UploadThing
   // NOTE: If your database saved the new ufs.sh URL, replace the string accordingly!
   // A safer way to get the key regardless of the domain is splitting by "/f/"
-  const fileKey:any = file.url.split("/f/")[1]; 
+  const fileKey = file.url.split("/f/")[1];
+  if (!fileKey) {
+    return { error: "Invalid file URL" };
+  }
   
   const utapiResult = await utApi.deleteFiles([fileKey]);
   console.log("UploadThing Deletion:", utapiResult);

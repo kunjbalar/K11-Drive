@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Button } from "~/components/ui/button";
-import { QUERIES,MUTATIONS } from "~/server/queries";
+import { Button } from "@/components/ui/button";
+import { QUERIES,MUTATIONS } from "@/server/queries";
 
 export default async function DrivePage() {
   const session = await auth();

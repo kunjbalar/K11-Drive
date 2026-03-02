@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
-import { MUTATIONS, QUERIES } from "~/server/queries";
+import { MUTATIONS, QUERIES } from "@/server/queries";
 import { z } from "zod";
 
 
@@ -31,15 +30,14 @@ export const ourFileRouter = {
       const user = await auth();
 
       // If you throw, the user will not be able to upload
-      // eslint-disable-next-line @typescript-eslint/only-throw-error
-      if (!user.userId) throw new UploadThingError("Unauthorized");
+      if (!user.userId) throw new Error("Unauthorized");
 
       const folder = await QUERIES.getFolderById(input.folderId);
 
-      if(!folder) throw new  UploadThingError("Folder is not found ");
+      if(!folder) throw new Error("Folder is not found");
 
       if(folder.ownerId !== user.userId){
-        throw new UploadThingError("Unauthorized");
+        throw new Error("Unauthorized");
       }
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`

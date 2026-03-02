@@ -1,8 +1,7 @@
 import "server-only";
 
-import { db } from "~/server/db";
-import type { Folder } from "generated/prisma";
-import type { StringMappingType } from "typescript";
+import { db } from "@/server/db";
+import type { Folder } from "@prisma/client";
 
 
 export const QUERIES = {
@@ -44,7 +43,6 @@ export const QUERIES = {
 
             // Add the folder to the beginning of the array
             parents.unshift(folder);
-            console.log(parents);
             // Prisma Style: Use 'parentId' instead of 'parent' because of your schema mapping
             currentId = folder.parentId;
         }

@@ -1,6 +1,5 @@
-import { db } from "~/server/db";
 import DriveContents from "./drive-contents";
-import { QUERIES } from "~/server/queries";
+import { QUERIES } from "@/server/queries";
 
 export default async function GoogleDriveClone(props: {
   params: Promise<{ folderId: string }>;

@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
-import { mockFolder } from "~/lib/mock-data"; // Make sure this path matches your mock-data file!
-import { db } from "~/server/db";
+import { mockFolder } from "@/lib/mock-data"; // Make sure this path matches your mock-data file!
+import { db } from "@/server/db";
 
 export default async function Sandbox() {
   const user = await auth();

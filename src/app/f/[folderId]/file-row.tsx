@@ -1,8 +1,8 @@
 import { Folder as FolderIcon, FileIcon , Trash2Icon } from "lucide-react"
-import type{ File,Folder } from "generated/prisma";
+import type{ File,Folder } from "@prisma/client";
 import Link from "next/link";
-import { Button } from "~/components/ui/button";
-import { deleteFile } from "~/server/action";
+import { Button } from "@/components/ui/button";
+import { deleteFile } from "@/server/action";
 
 export function FileRow(props:{file:File}){ 
 const {file} = props;

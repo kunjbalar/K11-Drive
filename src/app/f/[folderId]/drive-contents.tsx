@@ -1,12 +1,12 @@
 "use client"
 
 
-import { Upload, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { FileRow ,FolderRow } from "./file-row";
-import type { File, Folder  } from "generated/prisma";
+import type { File, Folder  } from "@prisma/client";
 import Link from "next/link";
 import { SignedIn,SignInButton,SignedOut,UserButton } from "@clerk/nextjs";
-import { UploadButton } from "~/components/uploadthing";
+import { UploadButton } from "@/components/uploadthing";
 import { useRouter } from "next/navigation";
 import { usePostHog } from "posthog-js/react";
  
@@ -34,7 +34,7 @@ const navigation = useRouter();
               My Drive
             </Link>
 
-           {props.parents.map((folder, index) => (
+           {props.parents.map((folder) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Link
