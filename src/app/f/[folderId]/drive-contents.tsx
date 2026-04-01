@@ -22,24 +22,24 @@ const navigation = useRouter();
   const posthog = usePostHog();
   
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center">
+    <div className="min-h-screen bg-gray-900 px-4 py-6 text-gray-100 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-1 items-center overflow-x-auto pb-1">
 
             <Link
               href="/f/13"
-              className="text-gray-300 hover:text-white mr-2"
+              className="mr-2 shrink-0 text-gray-300 hover:text-white"
             >
               My Drive
             </Link>
 
            {props.parents.map((folder) => (
-              <div key={folder.id} className="flex items-center">
+              <div key={folder.id} className="flex shrink-0 items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Link
                   href={`${folder.id}`}
-                  className="text-gray-300 hover:text-white"
+                  className="truncate text-gray-300 hover:text-white"
                 >
                   {folder.name}           
                 </Link>
@@ -47,7 +47,7 @@ const navigation = useRouter();
             ))}
             
       </div>
-           <div>
+          <div className="self-end sm:self-auto">
             <SignedOut>
               <SignInButton />
             </SignedOut>
@@ -56,8 +56,8 @@ const navigation = useRouter();
             </SignedIn>
           </div>
         </div>
-        <div className="bg-gray-800 rounded-lg shadow-xl">
-          <div className="px-6 py-4 border-b border-gray-700">
+        <div className="overflow-hidden rounded-lg bg-gray-800 shadow-xl">
+          <div className="hidden border-b border-gray-700 px-6 py-4 sm:block">
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
               <div className="col-span-6">Name</div>
               <div className="col-span-3">Type</div>
@@ -74,7 +74,8 @@ const navigation = useRouter();
             ))}
          </ul>
         </div>
-        <UploadButton endpoint="driveUploader" 
+        <div className="mt-6 flex justify-stretch sm:justify-end">
+          <UploadButton endpoint="driveUploader" 
         onBeforeUploadBegin={(files) => {
             posthog.capture("files_uploading", {
               fileCount: files.length,
@@ -85,6 +86,7 @@ const navigation = useRouter();
         onClientUploadComplete={()=>{navigation.refresh();}}  
         input={{folderId:props.currentFolderId}}
           />
+        </div>
       </div>
     </div>
   )

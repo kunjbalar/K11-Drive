@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { PendingSubmitButton } from "@/components/pending-submit-button";
 
 export default function HomePage() {
   return (
@@ -28,13 +28,13 @@ export default function HomePage() {
           return redirect("/drive");
         }}
       >
-        <Button
+        <PendingSubmitButton
+          idleText="Open K11 Drive"
+          pendingText="Opening K11 Drive..."
           size="lg"
           type="submit"
           className="h-12 rounded-xl border border-neutral-700 bg-neutral-100 px-8 text-base font-semibold text-neutral-900 shadow-lg shadow-neutral-950/20 transition-all duration-200 hover:scale-[1.01] hover:bg-white"
-        >
-          Open K11 Drive
-        </Button>
+        />
       </form>
       <div className="mt-12 grid w-full max-w-3xl grid-cols-1 gap-3 text-left text-sm text-neutral-300 md:grid-cols-3">
         <div className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-4">
